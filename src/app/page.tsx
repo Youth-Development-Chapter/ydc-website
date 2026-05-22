@@ -70,7 +70,7 @@ export default function Home() {
               </div>
               <h3 className="text-xl font-bold mb-3 text-[#1D1D1D]">The Solution</h3>
               <p className="text-sm md:text-base text-[#555555] leading-relaxed">
-                We understand Gen Z. You are the first digital-native generation—purpose-driven, tech-savvy, and socially conscious. YDC offers a consolidated model addressing the physical, intellectual, emotional, and spiritual needs of youth.
+                We understand Gen-Z. You are the first digital-native generation—purpose-driven, tech-savvy, and socially conscious. YDC offers a consolidated model addressing the physical, intellectual, emotional, and spiritual needs of youth.
               </p>
             </div>
           </div>
