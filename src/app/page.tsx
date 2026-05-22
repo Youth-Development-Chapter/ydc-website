@@ -31,7 +31,7 @@ export default function Home() {
             A visionary initiative to engage, train, and empower educated youth in South Punjab.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 px-4 sm:px-0">
-            <a href="https://portal.ydc.etc/auth/signup" className="w-full sm:w-auto">
+            <a href="https://portal.ydc.org.pk/auth/signup" className="w-full sm:w-auto">
               <Button size="lg" className="w-full sm:w-auto bg-[#1D1D1D] hover:bg-black text-white rounded-full px-8 shadow-xl shadow-black/10 transition-all hover:-translate-y-1 group" rightIcon={<ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />}>
                 Join the Movement
               </Button>
@@ -204,7 +204,7 @@ export default function Home() {
             Be part of our 5-Year Plan (2026–2030) to expose <strong className="text-[#1D1D1D]">10,000+</strong> youth to the Islamic worldview annually and train <strong className="text-[#1D1D1D]">1,200+</strong> youth for professional jobs.
           </p>
 
-          <a href="https://portal.ydc.etc/auth/signup" className="inline-block w-full sm:w-auto px-4 sm:px-0">
+          <a href="https://portal.ydc.org.pk/auth/signup" className="inline-block w-full sm:w-auto px-4 sm:px-0">
             <Button size="lg" className="w-full sm:w-auto px-6 py-4 sm:px-10 sm:py-6 text-base sm:text-lg bg-[#1D1D1D] hover:bg-black text-white rounded-full shadow-xl shadow-black/10 transition-transform hover:-translate-y-1">
               Create Your Profile Today
             </Button>

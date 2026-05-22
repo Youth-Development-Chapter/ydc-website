@@ -29,21 +29,21 @@ export default function Header() {
           {/* Action Buttons */}
           <div className="flex items-center gap-2 md:gap-5">
             <a 
-              href="https://portal.ydc.etc/auth/login" 
+              href="https://portal.ydc.org.pk/auth/login" 
               className="hidden md:inline-block text-sm md:text-base font-bold px-2 md:px-4 py-2 text-[#555555] hover:text-[#0A9EDE] transition-colors"
             >
               Sign In
             </a>
             
             {/* Desktop Join Button */}
-            <a href="https://portal.ydc.etc/auth/signup" className="hidden sm:block">
+            <a href="https://portal.ydc.org.pk/auth/signup" className="hidden sm:block">
               <Button className="bg-[#0A9EDE] hover:bg-[#098bc1] text-white rounded-full px-6 text-sm shadow-lg shadow-[#0A9EDE]/20 transition-transform hover:-translate-y-0.5" size="md">
                 Join the Movement
               </Button>
             </a>
             
             {/* Mobile Join Button (Compact) */}
-            <a href="https://portal.ydc.etc/auth/signup" className="sm:hidden">
+            <a href="https://portal.ydc.org.pk/auth/signup" className="sm:hidden">
               <Button className="bg-[#0A9EDE] hover:bg-[#098bc1] text-white rounded-full px-4 text-xs shadow-lg shadow-[#0A9EDE]/20 transition-transform" size="sm">
                 Join
               </Button>
@@ -88,7 +88,7 @@ export default function Header() {
             <div className="h-[1px] bg-[#E5E5E5] w-full my-1"></div>
             
             <a
-              href="https://portal.ydc.etc/auth/login"
+              href="https://portal.ydc.org.pk/auth/login"
               onClick={() => setIsMenuOpen(false)}
               className="text-base font-bold text-[#555555] hover:text-[#0A9EDE] transition-colors px-2"
             >
@@ -96,7 +96,7 @@ export default function Header() {
             </a>
             
             <a
-              href="https://portal.ydc.etc/auth/signup"
+              href="https://portal.ydc.org.pk/auth/signup"
               onClick={() => setIsMenuOpen(false)}
               className="w-full px-2"
             >
