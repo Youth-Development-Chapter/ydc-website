@@ -95,7 +95,7 @@ export default function Home() {
               </div>
               <h3 className="text-xl md:text-2xl font-bold mb-3 text-[#1D1D1D]">Character</h3>
               <p className="text-sm md:text-base text-[#555555] leading-relaxed relative z-10">
-                Building moral and ethical strength drawn from the Qur'an and Seerah.
+                Building moral and ethical strength drawn from the Qur&apos;an and Seerah.
               </p>
             </div>
 
@@ -166,7 +166,7 @@ export default function Home() {
               <Coins className="text-[#EAB308]" size={28} />
               <h4 className="text-lg font-bold mb-2">Gamification & YDC Coins</h4>
               <p className="text-[#A3A3A3] text-sm leading-relaxed">
-                Earn "YDC Coins" by completing courses. Climb the Bronze, Silver, and Gold tiers and redeem your coins in our marketplace.
+                Earn &ldquo;YDC Coins&rdquo; by completing courses. Climb the Bronze, Silver, and Gold tiers and redeem your coins in our marketplace.
               </p>
             </div>
 
@@ -222,6 +222,8 @@ export default function Home() {
             <a href="#vision" className="hover:text-[#1D1D1D] transition-colors">Vision</a>
             <a href="#pillars" className="hover:text-[#1D1D1D] transition-colors">Methodology</a>
             <a href="#app" className="hover:text-[#1D1D1D] transition-colors">The App</a>
+            <a href="/privacy-policy" className="hover:text-[#1D1D1D] transition-colors">Privacy Policy</a>
+            <a href="/data-deletion" className="hover:text-[#1D1D1D] transition-colors">Data Deletion</a>
           </div>
         </div>
       </footer>
