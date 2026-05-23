@@ -193,47 +193,145 @@ export default function Home() {
       </section>
 
       {/* Section 2: Core Challenge & Vision */}
-      <section id="vision" className="py-20 md:py-28 border-t border-[#E5E5E5] bg-[#FAFAFA] relative overflow-hidden">
+      <section id="vision" className="py-24 md:py-32 border-t border-[#E5E5E5] bg-[#FAFAFA] relative overflow-hidden scroll-mt-28">
         {/* subtle grid background */}
         <div className="dot-grid absolute inset-0 opacity-[0.02] pointer-events-none"></div>
 
         <div className="max-w-7xl mx-auto px-4 md:px-6">
-          <div className="text-center mb-16 md:mb-20">
-            <div className="mb-2">
-              <span className="font-nastaliq text-2xl md:text-3xl text-transparent bg-clip-text bg-gradient-to-r from-[#DD0408] to-[#0A9EDE]">
+          
+          {/* Header with floating badge */}
+          <div className="flex flex-col items-center mb-16 md:mb-20">
+            <div className="inline-flex items-center gap-2.5 px-4.5 py-2 rounded-full bg-white border border-[#E5E5E5] shadow-sm mb-6 transition-transform hover:scale-[1.02] duration-300">
+              <span className="font-nastaliq text-base md:text-lg text-[#0A9EDE] leading-none select-none">
                 وقت کی آواز
               </span>
+              <span className="w-1.5 h-1.5 rounded-full bg-[#E5E5E5] block"></span>
+              <span className="text-[10px] font-extrabold uppercase tracking-widest text-[#555555]">
+                Vision & Challenge
+              </span>
             </div>
-            <h2 className="text-3xl md:text-6xl font-bold mb-4 text-[#1D1D1D] tracking-tight">Built for the Connected Generation</h2>
-            <p className="text-sm md:text-lg text-[#555555] max-w-xl mx-auto">
-              Bridging the gap between standard education and character excellence.
+            <h2 className="text-3xl md:text-6xl font-black mb-5 text-[#1D1D1D] tracking-tight text-center max-w-4xl leading-[1.15]">
+              Built for the Connected Generation
+            </h2>
+            <p className="text-sm md:text-lg text-[#555555] max-w-2xl mx-auto text-center leading-relaxed px-2">
+              Bridging the gap between standard education and character excellence in South Punjab.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-stretch">
-            {/* The Challenge Card */}
-            <div className="p-8 md:p-12 rounded-3xl bg-white border border-[#E5E5E5]/80 shadow-md relative overflow-hidden group hover:border-[#DD0408]/30 transition-all duration-300">
-              <div className="absolute top-0 right-0 w-3 h-full bg-[#DD0408]/8"></div>
-              <div className="w-12 h-12 rounded-2xl bg-[#FEF2F2] flex items-center justify-center mb-8 border border-[#FEE2E2]">
-                <span className="w-3 h-3 rounded-full bg-[#DD0408] animate-pulse"></span>
+          {/* Cards Grid */}
+          <div className="grid md:grid-cols-2 gap-8 lg:gap-12 items-stretch max-w-6xl mx-auto">
+            
+            {/* The Challenge Card (Obsidian Dark Theme) */}
+            <div className="relative p-8 md:p-12 rounded-[32px] bg-neutral-950 text-white border border-neutral-900 shadow-xl overflow-hidden group hover:-translate-y-2 hover:shadow-2xl hover:border-red-950/40 transition-all duration-500 flex flex-col justify-between min-h-[440px]">
+              
+              {/* Subtle dark grid background & hover glow */}
+              <div className="absolute inset-0 opacity-[0.03] dot-grid-dark pointer-events-none"></div>
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(221,4,8,0.1),transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
+              
+              <div className="relative z-10">
+                {/* Header Row */}
+                <div className="flex justify-between items-start mb-8">
+                  <div className="w-12 h-12 rounded-2xl bg-red-950/20 border border-red-900/40 flex items-center justify-center text-red-500 shadow-inner">
+                    <span className="w-2.5 h-2.5 rounded-full bg-red-600 shadow-[0_0_10px_#dc2626] animate-pulse"></span>
+                  </div>
+                  <span className="text-[10px] uppercase font-black tracking-widest text-neutral-500 bg-neutral-900 px-3.5 py-1.5 rounded-full border border-neutral-800 select-none">
+                    Current Gap
+                  </span>
+                </div>
+                
+                {/* Main Content */}
+                <h3 className="text-2xl md:text-3xl font-extrabold mb-4 tracking-tight text-white group-hover:text-red-400 transition-colors duration-300">
+                  The Challenge
+                </h3>
+                <p className="text-neutral-400 text-sm md:text-base leading-relaxed font-normal">
+                  The youth of South Punjab face structural difficulties, including scarce employment prospects, a deficit of high-end specialized training, and a growing disconnect between standard academic curricula and actual real-world corporate demands.
+                </p>
               </div>
-              <h3 className="text-2xl md:text-3xl font-extrabold mb-4 text-[#1D1D1D]">The Challenge</h3>
-              <p className="text-[#555555] text-sm md:text-base leading-relaxed">
-                The youth of South Punjab face structural difficulties, including scarce employment prospects, a deficit of high-end specialized training, and a growing disconnect between standard academic curricula and actual real-world corporate demands.
-              </p>
+
+              {/* Bottom Visual: Erratic Dashed Disconnected SVG Line */}
+              <div className="mt-8 pt-6 border-t border-neutral-900/80 relative z-10">
+                <svg className="w-full h-16 text-neutral-800" viewBox="0 0 300 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <line x1="0" y1="10" x2="300" y2="10" stroke="#1A1A1A" strokeDasharray="3 3" />
+                  <line x1="0" y1="30" x2="300" y2="30" stroke="#1A1A1A" strokeDasharray="3 3" />
+                  <line x1="0" y1="50" x2="300" y2="50" stroke="#1A1A1A" strokeDasharray="3 3" />
+                  
+                  <path d="M10 20 L70 38 M95 32 L150 48 M175 38 L230 52 M255 42 L290 55" stroke="url(#redGrad)" strokeWidth="2.5" strokeLinecap="round" strokeDasharray="6 4" className="group-hover:stroke-red-500 transition-colors duration-500" />
+                  
+                  <circle cx="70" cy="38" r="3" fill="#dc2626" />
+                  <circle cx="150" cy="48" r="3" fill="#dc2626" />
+                  <circle cx="230" cy="52" r="3" fill="#dc2626" />
+                  <circle cx="290" cy="55" r="3" fill="#dc2626" />
+                  <circle cx="290" cy="55" r="7" fill="#dc2626" fillOpacity="0.3" className="animate-ping" />
+                  
+                  <defs>
+                    <linearGradient id="redGrad" x1="0" y1="0" x2="300" y2="0" gradientUnits="userSpaceOnUse">
+                      <stop stopColor="#ef4444" />
+                      <stop offset="0.5" stopColor="#b91c1c" />
+                      <stop offset="1" stopColor="#7f1d1d" />
+                    </linearGradient>
+                  </defs>
+                </svg>
+              </div>
+
             </div>
 
-            {/* The Solution Card */}
-            <div className="p-8 md:p-12 rounded-3xl bg-white border border-[#E5E5E5]/80 shadow-md relative overflow-hidden group hover:border-[#0A9EDE]/30 transition-all duration-300">
-              <div className="absolute top-0 right-0 w-3 h-full bg-[#0A9EDE]/8"></div>
-              <div className="w-12 h-12 rounded-2xl bg-[#F0F9FF] flex items-center justify-center mb-8 border border-[#E0F2FE]">
-                <span className="w-3 h-3 rounded-full bg-[#0A9EDE]"></span>
+            {/* The Solution Card (Prism Glass / White canvas) */}
+            <div className="relative p-8 md:p-12 rounded-[32px] bg-white border border-[#E5E5E5] shadow-xl overflow-hidden group hover:-translate-y-2 hover:shadow-2xl hover:border-blue-200 transition-all duration-500 flex flex-col justify-between min-h-[440px]">
+              
+              {/* Subtle grid background & blue hover glow */}
+              <div className="absolute inset-0 opacity-[0.02] dot-grid pointer-events-none"></div>
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(10,158,222,0.06),transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
+              
+              <div className="relative z-10">
+                {/* Header Row */}
+                <div className="flex justify-between items-start mb-8">
+                  <div className="w-12 h-12 rounded-2xl bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-500 shadow-inner">
+                    <span className="w-2.5 h-2.5 rounded-full bg-[#0A9EDE] shadow-[0_0_10px_rgba(10,158,222,0.8)]"></span>
+                  </div>
+                  <span className="text-[10px] uppercase font-black tracking-widest text-[#0A9EDE] bg-blue-50/50 px-3.5 py-1.5 rounded-full border border-blue-100 select-none">
+                    YDC Ecosystem
+                  </span>
+                </div>
+                
+                {/* Main Content */}
+                <h3 className="text-2xl md:text-3xl font-extrabold mb-4 tracking-tight text-[#1D1D1D] group-hover:text-[#0A9EDE] transition-colors duration-300">
+                  The Solution
+                </h3>
+                <p className="text-[#555555] text-sm md:text-base leading-relaxed font-normal">
+                  We understand the digital generation. You are purpose-driven, tech-literate, and socially conscious. YDC orchestrates a customized solution that consolidates intellectual skills, daily character development, and physical volunteer service.
+                </p>
               </div>
-              <h3 className="text-2xl md:text-3xl font-extrabold mb-4 text-[#1D1D1D]">The Solution</h3>
-              <p className="text-[#555555] text-sm md:text-base leading-relaxed">
-                We understand the digital generation. You are purpose-driven, tech-literate, and socially conscious. YDC orchestrates a customized solution that consolidates intellectual skills, daily character development, and physical volunteer service.
-              </p>
+
+              {/* Bottom Visual: Smooth Connected Gradient Line Graph */}
+              <div className="mt-8 pt-6 border-t border-neutral-100 relative z-10">
+                <svg className="w-full h-16 text-blue-100" viewBox="0 0 300 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <line x1="0" y1="10" x2="300" y2="10" stroke="#F8FAFC" strokeDasharray="3 3" />
+                  <line x1="0" y1="30" x2="300" y2="30" stroke="#F8FAFC" strokeDasharray="3 3" />
+                  <line x1="0" y1="50" x2="300" y2="50" stroke="#F8FAFC" strokeDasharray="3 3" />
+                  
+                  <path d="M10 50 C80 50, 100 20, 150 20 C200 20, 220 10, 290 10" stroke="url(#blueGrad)" strokeWidth="3" strokeLinecap="round" />
+                  <path d="M10 50 C80 50, 100 20, 150 20 C200 20, 220 10, 290 10 L290 60 L10 60 Z" fill="url(#blueAreaGrad)" opacity="0.08" className="group-hover:opacity-12 transition-opacity duration-300" />
+                  
+                  <circle cx="70" cy="42" r="5" fill="#0A9EDE" stroke="#fff" strokeWidth="1.5" className="filter drop-shadow-sm group-hover:scale-110 transition-transform" />
+                  <circle cx="150" cy="20" r="5" fill="#0BA242" stroke="#fff" strokeWidth="1.5" className="filter drop-shadow-sm group-hover:scale-110 transition-transform" />
+                  <circle cx="230" cy="14" r="5" fill="#DD0408" stroke="#fff" strokeWidth="1.5" className="filter drop-shadow-sm group-hover:scale-110 transition-transform" />
+                  
+                  <defs>
+                    <linearGradient id="blueGrad" x1="0" y1="0" x2="300" y2="0" gradientUnits="userSpaceOnUse">
+                      <stop stopColor="#0A9EDE" />
+                      <stop offset="0.5" stopColor="#0BA242" />
+                      <stop offset="1" stopColor="#DD0408" />
+                    </linearGradient>
+                    <linearGradient id="blueAreaGrad" x1="0" y1="0" x2="0" y2="60" gradientUnits="userSpaceOnUse">
+                      <stop stopColor="#0A9EDE" stopOpacity="0.4" />
+                      <stop offset="1" stopColor="#0A9EDE" stopOpacity="0" />
+                    </linearGradient>
+                  </defs>
+                </svg>
+              </div>
+
             </div>
+
           </div>
         </div>
       </section>
