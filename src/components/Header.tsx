@@ -23,7 +23,7 @@ export default function Header() {
           <nav className="hidden md:flex items-center gap-8 lg:gap-10 text-base font-semibold text-[#555555]">
             <a href="#vision" className="hover:text-[#0A9EDE] transition-colors">Our Vision</a>
             <a href="#pillars" className="hover:text-[#0A9EDE] transition-colors">Methodology</a>
-            <a href="#app" className="hover:text-[#0A9EDE] transition-colors">Digital Ecosystem</a>
+            <a href="#concept" className="hover:text-[#0A9EDE] transition-colors">Core Concept</a>
           </nav>
 
           {/* Action Buttons */}
@@ -78,11 +78,11 @@ export default function Header() {
               Methodology
             </a>
             <a
-              href="#app"
+              href="#concept"
               onClick={() => setIsMenuOpen(false)}
               className="text-base font-semibold text-[#555555] hover:text-[#0A9EDE] transition-colors px-2"
             >
-              Digital Ecosystem
+              Core Concept
             </a>
             
             <div className="h-[1px] bg-[#E5E5E5] w-full my-1"></div>

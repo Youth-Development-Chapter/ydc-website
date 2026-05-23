@@ -1,39 +1,191 @@
-import { Award, Compass, Users, ArrowRight, Flame, Coins, GraduationCap, Ticket, Database } from "lucide-react";
+"use client";
+
+import React, { useState, useEffect, useRef } from "react";
+import { 
+  Award, 
+  Compass, 
+  Users, 
+  ArrowRight, 
+  Flame, 
+  Coins, 
+  GraduationCap, 
+  Ticket, 
+  Database, 
+  Heart, 
+  Sparkles, 
+  BookOpen, 
+  User, 
+  CheckCircle2, 
+  ChevronRight, 
+  Quote, 
+  Sparkle,
+  Bookmark
+} from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import Header from "@/components/Header";
 
+type PillarKey = "character" | "career" | "community";
+
 export default function Home() {
+  // 3C Pillars scroll ref and active state
+  const pillarsRef = useRef<HTMLDivElement>(null);
+  const [activePillar, setActivePillar] = useState<PillarKey>("character");
+
+  // 3C Pillars content data
+  const pillarsData = {
+    character: {
+      title: "Character",
+      urduTitle: "کردار",
+      themeColor: "from-[#0A9EDE] to-[#056E9B]",
+      accentColor: "#0A9EDE",
+      bgColor: "bg-[#F0F9FF]",
+      icon: Compass,
+      description: "Building moral and ethical strength drawn from the Qur'an and Seerah. YDC instills accountability, empathy, and integrity in South Punjab's youth.",
+      features: [
+        "Weekly Islamic Study Circles & Mentor Sessions",
+        "Socio-Behavioral Self-Evaluation Framework",
+        "Earning moral badges through verified community contributions"
+      ],
+      stat: "Moral Framework Integration",
+      statValue: "100%"
+    },
+    career: {
+      title: "Career",
+      urduTitle: "کیریئر",
+      themeColor: "from-[#0BA242] to-[#066328]",
+      accentColor: "#0BA242",
+      bgColor: "bg-[#F0FDF4]",
+      icon: GraduationCap,
+      description: "Fostering self-reliance by offering top-tier IT training, professional development programs, and closing the gap between university education and modern jobs.",
+      features: [
+        "Practical programming, web development, and digital marketing tracks",
+        "Resume building, professional communication, and mock interview setups",
+        "Direct connection to regional corporate houses for job placement"
+      ],
+      stat: "Target Youth Trained (2030)",
+      statValue: "1,200+"
+    },
+    community: {
+      title: "Community",
+      urduTitle: "خدمت",
+      themeColor: "from-[#DD0408] to-[#990205]",
+      accentColor: "#DD0408",
+      bgColor: "bg-[#FFF5F5]",
+      icon: Users,
+      description: "Promoting social responsibility through organized Khidmat drives, local charity efforts, and regional youth projects that foster collaborative teamwork.",
+      features: [
+        "Daily good deeds uploading & tracking",
+        "Weekly local community development campaigns",
+        "A public community feed displaying volunteer-led solutions"
+      ],
+      stat: "Khidmat Drives Annually",
+      statValue: "1,000+"
+    }
+  };
+
+  // Scroll pinning calculation for desktop
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!pillarsRef.current) return;
+      const rect = pillarsRef.current.getBoundingClientRect();
+      const containerHeight = rect.height;
+      const topOffset = -rect.top;
+      
+      const totalScrollable = containerHeight - window.innerHeight;
+      if (totalScrollable <= 0) return;
+      
+      const scrollRatio = topOffset / totalScrollable;
+      
+      if (scrollRatio >= 0 && scrollRatio <= 1) {
+        if (scrollRatio < 0.33) {
+          setActivePillar("character");
+        } else if (scrollRatio < 0.66) {
+          setActivePillar("career");
+        } else {
+          setActivePillar("community");
+        }
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // Smooth scroll helper when navigation buttons are clicked in scroll lock container
+  const handlePillarClick = (key: PillarKey) => {
+    if (!pillarsRef.current) return;
+    const rect = pillarsRef.current.getBoundingClientRect();
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    const containerHeight = rect.height;
+    const totalScrollable = containerHeight - window.innerHeight;
+    
+    let targetScroll = 0;
+    if (key === "character") {
+      targetScroll = scrollTop + rect.top;
+    } else if (key === "career") {
+      targetScroll = scrollTop + rect.top + totalScrollable * 0.45;
+    } else if (key === "community") {
+      targetScroll = scrollTop + rect.top + totalScrollable * 0.9;
+    }
+    
+    window.scrollTo({
+      top: targetScroll,
+      behavior: "smooth"
+    });
+  };
+
   return (
-    <div className="min-h-screen bg-white text-[#1D1D1D] selection:bg-[#1D1D1D] selection:text-white">
+    <div className="min-h-screen bg-white text-[#1D1D1D] selection:bg-[#1D1D1D] selection:text-white antialiased">
       {/* Floating Navbar Pill */}
       <Header />
 
-
       {/* Section 1: The Hero Area */}
-      <section className="relative min-h-screen flex flex-col items-center justify-center text-center w-full overflow-hidden pt-28 md:pt-0">
-        {/* Background Watermark */}
-        <div className="absolute inset-0 z-0 flex items-center justify-center pointer-events-none opacity-[0.03]">
-          <img src="/icontransparent.png" alt="" className="w-[800px] h-auto scale-150" />
+      <section className="relative min-h-screen flex flex-col items-center justify-center text-center w-full overflow-hidden pt-36 md:pt-44 pb-20 md:pb-24">
+        {/* Dotted Grid Background */}
+        <div className="dot-grid absolute inset-0 opacity-40 z-0 pointer-events-none"></div>
+
+        {/* Soft Background Radial Glowing Orbs */}
+        <div className="absolute -top-40 -left-40 w-96 h-96 rounded-full bg-[#0A9EDE]/8 blur-[100px] pointer-events-none"></div>
+        <div className="absolute bottom-20 -right-40 w-[450px] h-[450px] rounded-full bg-[#DD0408]/6 blur-[120px] pointer-events-none"></div>
+        <div className="absolute top-[30%] left-[40%] w-[350px] h-[350px] rounded-full bg-[#0BA242]/5 blur-[100px] pointer-events-none"></div>
+
+        {/* Background Watermark Logo */}
+        <div className="absolute inset-0 z-0 flex items-center justify-center pointer-events-none opacity-[0.035]">
+          <img src="/icontransparent.png" alt="" className="w-[800px] h-auto scale-150 animate-[spin_120s_linear_infinite]" />
         </div>
         
         <div className="fluid-bottom-gradient"></div>
+
         <div className="relative z-10 px-4 md:px-6 max-w-7xl mx-auto w-full">
-          <div className="mb-4">
-            <span className="font-nastaliq text-2xl md:text-4xl text-transparent bg-clip-text bg-gradient-to-r from-[#DD0408] via-[#0A9EDE] to-[#0BA242]">
-              ستاروں سے آگے
-            </span>
+
+          {/* Urdu Subtitle */}
+          <div className="flex flex-row-reverse flex-wrap items-center justify-center gap-x-4 sm:gap-x-6 gap-y-2 mb-6 md:mb-8 font-nastaliq text-base sm:text-lg md:text-2xl leading-loose">
+            <span className="text-[#0A9EDE] transition-all hover:scale-105 duration-300">یقینِ محکم</span>
+            <span className="text-[#888888] text-[10px] md:text-xs opacity-50 font-sans select-none">•</span>
+            <span className="text-[#0BA242] transition-all hover:scale-105 duration-300">عملِ پیہم</span>
+            <span className="text-[#888888] text-[10px] md:text-xs opacity-50 font-sans select-none">•</span>
+            <span className="text-[#DD0408] transition-all hover:scale-105 duration-300">محبت فاتحِ عالم</span>
           </div>
 
-          <h1 className="text-4xl sm:text-5xl md:text-7xl font-extrabold tracking-normal text-[#1D1D1D] mb-6 leading-tight">
-            Inspiration Drives Transformation.
+          {/* Main Hero Header */}
+          <h1 className="text-4xl sm:text-5xl md:text-8xl font-black tracking-normal text-[#1D1D1D] mb-8 leading-[1.25] md:leading-[1.2] max-w-5xl mx-auto">
+            Inspiration Drives <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#0A9EDE] via-[#DD0408] to-[#C5A059]">Transformation.</span>
           </h1>
-          <p className="text-base md:text-xl text-[#555555] max-w-2xl mx-auto mb-10 leading-relaxed px-2 md:px-0">
-            A visionary initiative to engage, train, and empower educated youth in South Punjab.
+
+          <p className="text-base md:text-xl text-[#555555] max-w-3xl mx-auto mb-10 leading-relaxed px-2 md:px-0">
+            A visionary socio-behavioral initiative designed to engage, train, and structurally empower educated youth across South Punjab with character, modern careers, and community values.
           </p>
+
+          {/* Luxury CTAs */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 px-4 sm:px-0">
             <a href="https://portal.ydc.org.pk/auth/signup" className="w-full sm:w-auto">
-              <Button size="lg" className="w-full sm:w-auto bg-[#1D1D1D] hover:bg-black text-white rounded-full px-8 shadow-xl shadow-black/10 transition-all hover:-translate-y-1 group" rightIcon={<ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />}>
+              <Button size="lg" className="w-full sm:w-auto bg-[#1D1D1D] hover:bg-black text-white rounded-full px-8 shadow-xl shadow-black/10 transition-all hover:-translate-y-1 hover:shadow-black/20 group" rightIcon={<ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />}>
                 Join the Movement
+              </Button>
+            </a>
+            <a href="#pillars" className="w-full sm:w-auto">
+              <Button size="lg" variant="secondary" className="w-full sm:w-auto rounded-full px-8 transition-all hover:-translate-y-1">
+                Explore Our Core Pillars
               </Button>
             </a>
           </div>
@@ -41,171 +193,402 @@ export default function Home() {
       </section>
 
       {/* Section 2: Core Challenge & Vision */}
-      <section id="vision" className="py-16 md:py-24 border-t border-[#E5E5E5] bg-[#FAFAFA] relative overflow-hidden">
+      <section id="vision" className="py-20 md:py-28 border-t border-[#E5E5E5] bg-[#FAFAFA] relative overflow-hidden">
+        {/* subtle grid background */}
+        <div className="dot-grid absolute inset-0 opacity-[0.02] pointer-events-none"></div>
+
         <div className="max-w-7xl mx-auto px-4 md:px-6">
-          <div className="text-center mb-12 md:mb-16">
+          <div className="text-center mb-16 md:mb-20">
             <div className="mb-2">
-              <span className="font-nastaliq text-xl md:text-2xl text-transparent bg-clip-text bg-gradient-to-r from-[#DD0408] to-[#0A9EDE]">
+              <span className="font-nastaliq text-2xl md:text-3xl text-transparent bg-clip-text bg-gradient-to-r from-[#DD0408] to-[#0A9EDE]">
                 وقت کی آواز
               </span>
             </div>
-            <h2 className="text-3xl md:text-5xl font-bold mb-4 text-[#1D1D1D] leading-tight">Built for the Connected Generation</h2>
-          </div>
-
-          <div className="grid md:grid-cols-2 gap-6 md:gap-12 items-stretch">
-            <div className="p-6 md:p-8 rounded-2xl bg-white border border-[#E5E5E5] shadow-sm">
-              <div className="w-10 h-10 rounded-full bg-[#FEF2F2] flex items-center justify-center mb-6">
-                <span className="w-2 h-2 rounded-full bg-[#DD0408]"></span>
-              </div>
-              <h3 className="text-xl font-bold mb-3 text-[#1D1D1D]">The Challenge</h3>
-              <p className="text-sm md:text-base text-[#555555] leading-relaxed">
-                The youth of South Punjab face immense challenges, including scarce employment opportunities for graduates, a lack of quality higher education institutions, and a massive skill gap between university education and corporate sector needs.
-              </p>
-            </div>
-
-            <div className="p-6 md:p-8 rounded-2xl bg-white border border-[#E5E5E5] shadow-sm relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-32 h-32 bg-[#0A9EDE] opacity-5 rounded-bl-full"></div>
-              <div className="w-10 h-10 rounded-full bg-[#F0F9FF] flex items-center justify-center mb-6">
-                <span className="w-2 h-2 rounded-full bg-[#0A9EDE]"></span>
-              </div>
-              <h3 className="text-xl font-bold mb-3 text-[#1D1D1D]">The Solution</h3>
-              <p className="text-sm md:text-base text-[#555555] leading-relaxed">
-                We understand Gen-Z. You are the first digital-native generation—purpose-driven, tech-savvy, and socially conscious. YDC offers a consolidated model addressing the physical, intellectual, emotional, and spiritual needs of youth.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Section 3: Our Three Pillars */}
-      <section id="pillars" className="py-16 md:py-24 border-t border-[#E5E5E5] bg-white">
-        <div className="max-w-7xl mx-auto px-4 md:px-6">
-          <div className="text-center mb-12 md:mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-[#1D1D1D]">Our Core Methodology</h2>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-6 md:gap-8">
-            {/* Character */}
-            <div className="relative p-6 sm:p-8 md:p-10 rounded-2xl border border-[#E5E5E5] bg-[#FAFAFA] overflow-hidden group hover:border-[#1D1D1D] transition-all duration-300">
-              <div className="absolute -right-4 -bottom-8 font-nastaliq text-[100px] md:text-[140px] text-[#1D1D1D] opacity-[0.03] pointer-events-none select-none transition-transform group-hover:scale-110 duration-500">
-                کردار
-              </div>
-              <div className="w-12 h-12 rounded-xl bg-white border border-[#E5E5E5] flex items-center justify-center text-[#1D1D1D] mb-6 shadow-sm">
-                <Compass size={24} />
-              </div>
-              <h3 className="text-xl md:text-2xl font-bold mb-3 text-[#1D1D1D]">Character</h3>
-              <p className="text-sm md:text-base text-[#555555] leading-relaxed relative z-10">
-                Building moral and ethical strength drawn from the Qur&apos;an and Seerah.
-              </p>
-            </div>
-
-            {/* Career */}
-            <div className="relative p-6 sm:p-8 md:p-10 rounded-2xl border border-[#E5E5E5] bg-[#FAFAFA] overflow-hidden group hover:border-[#1D1D1D] transition-all duration-300">
-              <div className="absolute -right-4 -bottom-8 font-nastaliq text-[100px] md:text-[140px] text-[#1D1D1D] opacity-[0.03] pointer-events-none select-none transition-transform group-hover:scale-110 duration-500">
-                کیریئر
-              </div>
-              <div className="w-12 h-12 rounded-xl bg-white border border-[#E5E5E5] flex items-center justify-center text-[#1D1D1D] mb-6 shadow-sm">
-                <Award size={24} />
-              </div>
-              <h3 className="text-xl md:text-2xl font-bold mb-3 text-[#1D1D1D]">Career</h3>
-              <p className="text-sm md:text-base text-[#555555] leading-relaxed relative z-10">
-                Fostering self-reliance, offering IT and professional training, and closing the corporate skill gap.
-              </p>
-            </div>
-
-            {/* Community */}
-            <div className="relative p-6 sm:p-8 md:p-10 rounded-2xl border border-[#E5E5E5] bg-[#FAFAFA] overflow-hidden group hover:border-[#1D1D1D] transition-all duration-300">
-              <div className="absolute -right-4 -bottom-8 font-nastaliq text-[100px] md:text-[140px] text-[#1D1D1D] opacity-[0.03] pointer-events-none select-none transition-transform group-hover:scale-110 duration-500">
-                خدمت
-              </div>
-              <div className="w-12 h-12 rounded-xl bg-white border border-[#E5E5E5] flex items-center justify-center text-[#1D1D1D] mb-6 shadow-sm">
-                <Users size={24} />
-              </div>
-              <h3 className="text-xl md:text-2xl font-bold mb-3 text-[#1D1D1D]">Community</h3>
-              <p className="text-sm md:text-base text-[#555555] leading-relaxed relative z-10">
-                Promoting social responsibility and aiming to organize 1000+ Khidmat (community service) initiatives annually.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Section 4: The YDC Digital App Experience */}
-      <section id="app" className="py-16 md:py-24 border-t border-[#E5E5E5] bg-[#1D1D1D] text-white">
-        <div className="max-w-7xl mx-auto px-4 md:px-6">
-          <div className="text-center mb-12 md:mb-16">
-            <div className="mb-2">
-              <span className="font-nastaliq text-xl md:text-2xl text-[#0A9EDE]">
-                ڈیجیٹل انقلاب
-              </span>
-            </div>
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 leading-tight">A Digital Ecosystem in Your Hands</h2>
-            <p className="text-sm md:text-base text-[#A3A3A3] max-w-2xl mx-auto px-2">
-              Our socio-behavioral engine is powered by a state-of-the-art progressive web application.
+            <h2 className="text-3xl md:text-6xl font-bold mb-4 text-[#1D1D1D] tracking-tight">Built for the Connected Generation</h2>
+            <p className="text-sm md:text-lg text-[#555555] max-w-xl mx-auto">
+              Bridging the gap between standard education and character excellence.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <div className="bg-[#2A2A2A] border border-[#333333] p-6 rounded-2xl">
-              <Database className="text-[#0A9EDE] mb-4" size={28} />
-              <h4 className="text-lg font-bold mb-2">Centralized Profiles</h4>
-              <p className="text-[#A3A3A3] text-sm leading-relaxed">
-                Fill out your membership form via the app to join our secure data bank.
-              </p>
-            </div>
-            
-            <div className="bg-[#2A2A2A] border border-[#333333] p-6 rounded-2xl">
-              <Ticket className="text-[#0BA242]" size={28} />
-              <h4 className="text-lg font-bold mb-2">Smart Event Ticketing</h4>
-              <p className="text-[#A3A3A3] text-sm leading-relaxed">
-                Register for physical events and receive a unique, secure QR ticket for instant attendance tracking.
+          <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-stretch">
+            {/* The Challenge Card */}
+            <div className="p-8 md:p-12 rounded-3xl bg-white border border-[#E5E5E5]/80 shadow-md relative overflow-hidden group hover:border-[#DD0408]/30 transition-all duration-300">
+              <div className="absolute top-0 right-0 w-3 h-full bg-[#DD0408]/8"></div>
+              <div className="w-12 h-12 rounded-2xl bg-[#FEF2F2] flex items-center justify-center mb-8 border border-[#FEE2E2]">
+                <span className="w-3 h-3 rounded-full bg-[#DD0408] animate-pulse"></span>
+              </div>
+              <h3 className="text-2xl md:text-3xl font-extrabold mb-4 text-[#1D1D1D]">The Challenge</h3>
+              <p className="text-[#555555] text-sm md:text-base leading-relaxed">
+                The youth of South Punjab face structural difficulties, including scarce employment prospects, a deficit of high-end specialized training, and a growing disconnect between standard academic curricula and actual real-world corporate demands.
               </p>
             </div>
 
-            <div className="bg-[#2A2A2A] border border-[#333333] p-6 rounded-2xl">
-              <Coins className="text-[#EAB308]" size={28} />
-              <h4 className="text-lg font-bold mb-2">Gamification & YDC Coins</h4>
-              <p className="text-[#A3A3A3] text-sm leading-relaxed">
-                Earn &ldquo;YDC Coins&rdquo; by completing courses. Climb the Bronze, Silver, and Gold tiers and redeem your coins in our marketplace.
-              </p>
-            </div>
-
-            <div className="bg-[#2A2A2A] border border-[#333333] p-6 rounded-2xl">
-              <Flame className="text-[#DD0408]" size={28} />
-              <h4 className="text-lg font-bold mb-2">Daily Goodness Streak</h4>
-              <p className="text-[#A3A3A3] text-sm leading-relaxed">
-                Build character by uploading photos or videos of your daily good deeds to maintain your streak and earn bonus rewards.
-              </p>
-            </div>
-
-            <div className="bg-[#2A2A2A] border border-[#333333] p-6 rounded-2xl md:col-span-2 lg:col-span-1">
-              <GraduationCap className="text-[#9333EA]" size={28} />
-              <h4 className="text-lg font-bold mb-2">E-Learning & Skills</h4>
-              <p className="text-[#A3A3A3] text-sm leading-relaxed">
-                Access our built-in Learning Management System (LMS) to complete courses and unlock final quizzes for automatic coin rewards.
+            {/* The Solution Card */}
+            <div className="p-8 md:p-12 rounded-3xl bg-white border border-[#E5E5E5]/80 shadow-md relative overflow-hidden group hover:border-[#0A9EDE]/30 transition-all duration-300">
+              <div className="absolute top-0 right-0 w-3 h-full bg-[#0A9EDE]/8"></div>
+              <div className="w-12 h-12 rounded-2xl bg-[#F0F9FF] flex items-center justify-center mb-8 border border-[#E0F2FE]">
+                <span className="w-3 h-3 rounded-full bg-[#0A9EDE]"></span>
+              </div>
+              <h3 className="text-2xl md:text-3xl font-extrabold mb-4 text-[#1D1D1D]">The Solution</h3>
+              <p className="text-[#555555] text-sm md:text-base leading-relaxed">
+                We understand the digital generation. You are purpose-driven, tech-literate, and socially conscious. YDC orchestrates a customized solution that consolidates intellectual skills, daily character development, and physical volunteer service.
               </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Section 5: Final CTA & 5-Year Vision */}
-      <section className="py-16 md:py-24 bg-[#FAFAFA]">
-        <div className="max-w-4xl mx-auto px-4 md:px-6 text-center">
+      {/* Section 3: Our Three Pillars (Scroll-Pinning for Desktop, Stacked for Mobile) */}
+      <section id="pillars" className="w-full relative">
+        
+        {/* DESKTOP LAYOUT (Sticky Scroll Locking, 300vh Container) */}
+        <div ref={pillarsRef} className="hidden md:block h-[300vh] relative bg-white border-t border-[#E5E5E5]">
+          <div className="sticky top-0 h-screen w-full flex flex-col justify-center items-center overflow-hidden pt-24 md:pt-28 pb-8">
+            
+            {/* Soft decorative background orb */}
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-[#FAFAFA] rounded-full blur-3xl opacity-60 pointer-events-none"></div>
+
+            <div className="max-w-7xl mx-auto px-6 w-full relative z-10">
+              
+              {/* Header */}
+              <div className="text-center mb-6 md:mb-8">
+                <span className="text-xs font-extrabold tracking-widest text-[#555555] uppercase block mb-1.5">Our Core Methodology</span>
+                <h2 className="text-3xl md:text-5xl font-black text-[#1D1D1D] tracking-tight mb-2">The 3C Program Model</h2>
+                <p className="text-[#555555] text-sm max-w-lg mx-auto">
+                  Our structural framework revolves around three vital pillars of personal growth. Scroll down to cycle through each.
+                </p>
+              </div>
+
+              {/* Selector Tabs (Updates dynamically on scroll, clickable to jump) */}
+              <div className="grid grid-cols-3 gap-4 max-w-xl mx-auto mb-6">
+                {(Object.keys(pillarsData) as PillarKey[]).map((key) => {
+                  const item = pillarsData[key];
+                  const isActive = activePillar === key;
+                  return (
+                    <button
+                      key={key}
+                      onClick={() => handlePillarClick(key)}
+                      className={`relative py-3 px-4 rounded-2xl text-center border font-bold text-base transition-all duration-300 cursor-pointer flex flex-col items-center justify-center gap-1.5 ${
+                        isActive 
+                          ? "bg-[#1D1D1D] border-[#1D1D1D] text-white shadow-xl shadow-black/10 scale-[1.03]" 
+                          : "bg-[#FAFAFA] border-[#E5E5E5] text-[#555555] hover:bg-[#F5F5F5]"
+                      }`}
+                    >
+                      <item.icon className={isActive ? "text-white" : "text-[#1D1D1D]"} size={22} />
+                      <span>{item.title}</span>
+                      <span className="text-[10px] tracking-wider uppercase font-nastaliq block opacity-85">{item.urduTitle}</span>
+                    </button>
+                  );
+                })}
+              </div>
+
+              {/* Card Container */}
+              <div className="max-w-4xl mx-auto">
+                <div className="relative rounded-[32px] border border-[#E5E5E5] bg-[#FAFAFA] p-6 md:p-10 overflow-hidden shadow-xl transition-all duration-500 min-h-[340px] flex items-center">
+                  
+                  {/* Color strip accent */}
+                  <div className={`absolute top-0 left-0 right-0 h-2 bg-gradient-to-r ${pillarsData[activePillar].themeColor}`}></div>
+
+                  {/* Urdu Watermark */}
+                  <div className="absolute right-6 bottom-[-30px] font-nastaliq text-[280px] text-[#1D1D1D] opacity-[0.035] pointer-events-none select-none">
+                    {pillarsData[activePillar].urduTitle}
+                  </div>
+
+                  <div className="grid md:grid-cols-12 gap-8 items-center w-full relative z-10 animate-fade-in">
+                    <div className="md:col-span-8">
+                      <div className="flex items-center gap-3 mb-4">
+                        <div className="p-2.5 rounded-xl bg-white border border-[#E5E5E5] shadow-sm" style={{ color: pillarsData[activePillar].accentColor }}>
+                          {React.createElement(pillarsData[activePillar].icon, { size: 24 })}
+                        </div>
+                        <span className="text-2xl font-bold tracking-tight text-[#1D1D1D]">
+                          {pillarsData[activePillar].title} Pillar
+                        </span>
+                      </div>
+
+                      <p className="text-base text-[#555555] leading-relaxed mb-6">
+                        {pillarsData[activePillar].description}
+                      </p>
+
+                      <h4 className="font-bold text-[#1D1D1D] mb-3 text-xs uppercase tracking-wider">Key Objectives</h4>
+                      <ul className="space-y-3">
+                        {pillarsData[activePillar].features.map((feat, index) => (
+                          <li key={index} className="flex items-start gap-2.5 text-sm text-[#444444]">
+                            <CheckCircle2 size={16} className="mt-0.5 shrink-0" style={{ color: pillarsData[activePillar].accentColor }} />
+                            <span>{feat}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+
+                    <div className="md:col-span-4 flex flex-col items-center justify-center text-center p-8 rounded-2xl bg-white border border-[#E5E5E5] shadow-sm min-h-[200px]">
+                      <span className="text-xs font-semibold text-[#888888] uppercase tracking-wider mb-2">
+                        {pillarsData[activePillar].stat}
+                      </span>
+                      <span className="text-5xl font-black tracking-tight" style={{ color: pillarsData[activePillar].accentColor }}>
+                        {pillarsData[activePillar].statValue}
+                      </span>
+                      <div className="h-1.5 w-10 rounded-full mt-4" style={{ backgroundColor: pillarsData[activePillar].accentColor }}></div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+
+        {/* MOBILE LAYOUT (Stacked vertical list of all 3 cards) */}
+        <div className="block md:hidden py-16 px-4 bg-white border-t border-[#E5E5E5] space-y-8">
+          <div className="text-center mb-10">
+            <span className="text-xs font-extrabold tracking-widest text-[#555555] uppercase block mb-2">Our Core Methodology</span>
+            <h2 className="text-3xl font-black text-[#1D1D1D] tracking-tight">The 3C Program Model</h2>
+          </div>
+
+          {(Object.keys(pillarsData) as PillarKey[]).map((key) => {
+            const item = pillarsData[key];
+            return (
+              <div key={key} className="relative rounded-3xl border border-[#E5E5E5] bg-[#FAFAFA] p-6 overflow-hidden shadow-md">
+                <div className={`absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r ${item.themeColor}`}></div>
+
+                {/* Urdu Watermark */}
+                <div className="absolute right-4 bottom-[-20px] font-nastaliq text-[180px] text-[#1D1D1D] opacity-[0.035] pointer-events-none select-none">
+                  {item.urduTitle}
+                </div>
+
+                <div className="relative z-10 space-y-4">
+                  <div className="flex items-center gap-3">
+                    <div className="p-2 rounded-lg bg-white border border-[#E5E5E5] shadow-sm" style={{ color: item.accentColor }}>
+                      {React.createElement(item.icon, { size: 20 })}
+                    </div>
+                    <span className="text-xl font-bold tracking-tight text-[#1D1D1D]">
+                      {item.title}
+                    </span>
+                  </div>
+
+                  <p className="text-sm text-[#555555] leading-relaxed">
+                    {item.description}
+                  </p>
+
+                  <div className="pt-2">
+                    <h4 className="font-bold text-[#1D1D1D] text-xs uppercase tracking-wider mb-2">Objectives</h4>
+                    <ul className="space-y-2">
+                      {item.features.map((feat, index) => (
+                        <li key={index} className="flex items-start gap-2 text-xs text-[#444444]">
+                          <CheckCircle2 size={14} className="mt-0.5 shrink-0" style={{ color: item.accentColor }} />
+                          <span>{feat}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  <div className="mt-4 pt-4 border-t border-[#E5E5E5]/60 flex items-center justify-between">
+                    <span className="text-[10px] font-semibold text-[#888888] uppercase tracking-wider">{item.stat}</span>
+                    <span className="text-xl font-black" style={{ color: item.accentColor }}>{item.statValue}</span>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
+      </section>
+
+      {/* Section 4: The Core Concept Section */}
+      <section id="concept" className="py-20 md:py-28 border-t border-[#E5E5E5] bg-[#1D1D1D] text-white relative overflow-hidden">
+        {/* Dark dot grid */}
+        <div className="dot-grid-dark absolute inset-0 opacity-40 pointer-events-none"></div>
+
+        {/* Soft Background glows */}
+        <div className="absolute top-[20%] -left-40 w-96 h-96 rounded-full bg-[#0A9EDE]/5 blur-[120px] pointer-events-none"></div>
+        <div className="absolute bottom-[20%] right-[-20%] w-[500px] h-[500px] rounded-full bg-[#DD0408]/5 blur-[140px] pointer-events-none"></div>
+
+        <div className="max-w-7xl mx-auto px-4 md:px-6 relative z-10">
+          {/* Header */}
+          <div className="text-center mb-16 md:mb-20">
+            <div className="mb-2">
+              <span className="font-nastaliq text-2xl md:text-3xl text-[#0A9EDE]">
+                بنیادی تصور
+              </span>
+            </div>
+            <h2 className="text-3xl md:text-6xl font-bold mb-4 tracking-tight">The Core Concept</h2>
+            <p className="text-sm md:text-lg text-[#A3A3A3] max-w-2xl mx-auto px-2">
+              The thought behind the initiative: transforming individual character to build a visionary community.
+            </p>
+          </div>
+
+          {/* Cards Grid */}
+          <div className="grid md:grid-cols-3 gap-6 lg:gap-8 max-w-6xl mx-auto">
+            
+            {/* Card 1: Sincerity (الاخلاص) */}
+            <div className="bg-[#222222]/80 border border-[#333333] p-8 rounded-3xl relative overflow-hidden group hover:border-white/10 hover:shadow-[0_20px_40px_-20px_rgba(10,158,222,0.25)] transition-all duration-300 flex flex-col min-h-[280px]">
+              <div className="absolute top-0 right-0 w-2.5 h-full bg-[#0A9EDE]/20 group-hover:bg-[#0A9EDE]/40 transition-colors"></div>
+              
+              <div className="flex items-center gap-2 mb-6">
+                <Bookmark className="text-[#0A9EDE]" size={18} />
+                <span className="text-xs font-bold text-[#A3A3A3] uppercase tracking-wider">Sincerity / الاخلاص</span>
+              </div>
+
+              {/* Quranic Arabic Verse */}
+              <div className="mb-4 text-right" dir="rtl">
+                <span className="font-nastaliq text-xl sm:text-2xl text-white tracking-wide leading-relaxed font-semibold">
+                  مُخْلِصِينَ لَهُ الدِّينَ
+                </span>
+                <span className="text-[10px] text-[#888888] font-sans block mt-1">(البينة: 5)</span>
+              </div>
+
+              {/* English Description */}
+              <p className="text-[#A3A3A3] text-sm leading-relaxed mt-auto pt-4 border-t border-[#333333]">
+                Purifying your intent—working solely for the pleasure of the Creator, free from self-interest or validation.
+              </p>
+            </div>
+
+            {/* Card 2: Insight (البصيرة) */}
+            <div className="bg-[#222222]/80 border border-[#333333] p-8 rounded-3xl relative overflow-hidden group hover:border-white/10 hover:shadow-[0_20px_40px_-20px_rgba(11,162,66,0.25)] transition-all duration-300 flex flex-col min-h-[280px]">
+              <div className="absolute top-0 right-0 w-2.5 h-full bg-[#0BA242]/20 group-hover:bg-[#0BA242]/40 transition-colors"></div>
+              
+              <div className="flex items-center gap-2 mb-6">
+                <Bookmark className="text-[#0BA242]" size={18} />
+                <span className="text-xs font-bold text-[#A3A3A3] uppercase tracking-wider">Insight / البصيرة</span>
+              </div>
+
+              {/* Quranic Arabic Verse */}
+              <div className="mb-4 text-right" dir="rtl">
+                <span className="font-nastaliq text-xl sm:text-2xl text-white tracking-wide leading-relaxed font-semibold">
+                  أَدْعُو إِلَى اللَّهِ ۚ عَلَىٰ بَصِيرَةٍ
+                </span>
+                <span className="text-[10px] text-[#888888] font-sans block mt-1">(يوسف: 108)</span>
+              </div>
+
+              {/* English Description */}
+              <p className="text-[#A3A3A3] text-sm leading-relaxed mt-auto pt-4 border-t border-[#333333]">
+                Cultivating deep wisdom—discerning truth from falsehood to navigate complex modern challenges.
+              </p>
+            </div>
+
+            {/* Card 3: Steadfastness (الاستقامة) */}
+            <div className="bg-[#222222]/80 border border-[#333333] p-8 rounded-3xl relative overflow-hidden group hover:border-white/10 hover:shadow-[0_20px_40px_-20px_rgba(221,4,8,0.25)] transition-all duration-300 flex flex-col min-h-[280px]">
+              <div className="absolute top-0 right-0 w-2.5 h-full bg-[#DD0408]/20 group-hover:bg-[#DD0408]/40 transition-colors"></div>
+              
+              <div className="flex items-center gap-2 mb-6">
+                <Bookmark className="text-[#DD0408]" size={18} />
+                <span className="text-xs font-bold text-[#A3A3A3] uppercase tracking-wider">Steadfastness / الاستقامة</span>
+              </div>
+
+              {/* Quranic Arabic Verse */}
+              <div className="mb-4 text-right" dir="rtl">
+                <span className="font-nastaliq text-xl sm:text-2xl text-white tracking-wide leading-relaxed font-semibold">
+                  ثُمَّ اسْتَقَامُوا
+                </span>
+                <span className="text-[10px] text-[#888888] font-sans block mt-1">(فصلت: 30)</span>
+              </div>
+
+              {/* English Description */}
+              <p className="text-[#A3A3A3] text-sm leading-relaxed mt-auto pt-4 border-t border-[#333333]">
+                Remaining unbroken—standing firm on your principles and dedication, through any adversity.
+              </p>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      {/* Section 5: Memorial Section (In Loving Memory of Rao Muhammad Zafar (Late)) */}
+      <section className="py-20 md:py-28 border-t border-[#E5E5E5] bg-[#FCFBF9] relative overflow-hidden">
+        {/* Subtle decorative dot pattern */}
+        <div className="dot-grid absolute inset-0 opacity-[0.03] pointer-events-none"></div>
+        
+        {/* Top/Bottom Radial glows for respect & serenity */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-[#0A9EDE]/3 rounded-full blur-[100px] pointer-events-none"></div>
+
+        <div className="max-w-6xl mx-auto px-4 md:px-6 relative z-10">
+          <div className="grid md:grid-cols-12 gap-12 md:gap-16 items-center">
+            
+            {/* Photo Frame (Left column) */}
+            <div className="md:col-span-5 flex justify-center">
+              <div className="relative group select-none">
+                {/* Frame ambient background glow */}
+                <div className="absolute inset-0 bg-[#0A9EDE]/8 rounded-[32px] blur-2xl group-hover:bg-[#0A9EDE]/12 transition-all duration-500"></div>
+                
+                {/* Classic Framed Picture container */}
+                <div className="memorial-frame w-[280px] sm:w-[320px] transition-transform duration-500 group-hover:-translate-y-1">
+                  <div className="memorial-inner-frame">
+                    <img 
+                      src="/raomuhammadzafar.jpg" 
+                      alt="Rao Muhammad Zafar" 
+                      className="w-full h-auto object-cover aspect-[4/5] filter grayscale contrast-125 brightness-95 group-hover:grayscale-0 transition-all duration-700" 
+                    />
+                  </div>
+                  
+                  {/* Photo Title */}
+                  <div className="text-center mt-4">
+                    <h3 className="font-serif text-lg font-bold text-[#1D1D1D] tracking-wide">
+                      Rao Muhammad Zafar
+                    </h3>
+                    <p className="text-xs text-[#0A9EDE] uppercase tracking-widest mt-1 font-semibold">
+                      (Late)
+                    </p>
+                  </div>
+                </div>
+
+                {/* Decorative Photo Corner Accents */}
+                <div className="absolute top-2 left-2 w-3.5 h-3.5 border-t-2 border-l-2 border-[#0A9EDE]/25"></div>
+                <div className="absolute top-2 right-2 w-3.5 h-3.5 border-t-2 border-r-2 border-[#0A9EDE]/25"></div>
+                <div className="absolute bottom-2 left-2 w-3.5 h-3.5 border-b-2 border-l-2 border-[#0A9EDE]/25"></div>
+                <div className="absolute bottom-2 right-2 w-3.5 h-3.5 border-b-2 border-r-2 border-[#0A9EDE]/25"></div>
+              </div>
+            </div>
+
+            {/* Dedication & Quotes (Right column) */}
+            <div className="md:col-span-7 flex flex-col justify-center">
+              <div className="flex items-center gap-2 mb-4">
+                <Heart className="text-[#DD0408] fill-[#DD0408]/10" size={18} />
+                <span className="text-xs font-bold text-[#0A9EDE] tracking-wider uppercase">In Loving Memory</span>
+              </div>
+
+              {/* Decorative Quote block */}
+              <div className="relative">
+                <Quote className="absolute -top-7 -left-7 text-[#0A9EDE]/10 rotate-180 w-16 h-16 pointer-events-none" />
+                <blockquote className="font-serif text-xl sm:text-2xl text-[#1D1D1D] italic leading-relaxed mb-6 relative z-10">
+                  &ldquo;His vision remains our guiding light. He believed that the ultimate purpose of education is not merely to earn a livelihood, but to build a character that serves humanity.&rdquo;
+                </blockquote>
+
+                <div className="h-[2px] w-16 bg-gradient-to-r from-[#0A9EDE] via-[#DD0408] to-[#0BA242] mb-6"></div>
+
+                <p className="text-sm md:text-base text-[#555555] leading-relaxed mb-4">
+                  Rao Muhammad Zafar was a dedicated educator, social reformer, and the structural guide behind the ideals of the Youth Development Chapter. His lifetime commitment to public service and youth empowerment continues to shape our mission.
+                </p>
+
+                <p className="text-xs text-[#888888] font-bold uppercase tracking-widest mt-2 flex items-center gap-2">
+                  Mentor <span>&bull;</span> Guide <span>&bull;</span> Visionary
+                </p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      {/* Section 6: Final CTA & 5-Year Vision */}
+      <section className="py-20 md:py-28 bg-[#FAFAFA] relative overflow-hidden">
+        <div className="dot-grid absolute inset-0 opacity-[0.02] pointer-events-none"></div>
+
+        <div className="max-w-4xl mx-auto px-4 md:px-6 text-center relative z-10">
           <div className="mb-4">
-            <span className="font-nastaliq text-xl md:text-2xl text-transparent bg-clip-text bg-gradient-to-r from-[#DD0408] to-[#0A9EDE]">
+            <span className="font-nastaliq text-2xl md:text-3xl text-transparent bg-clip-text bg-gradient-to-r from-[#DD0408] to-[#0A9EDE]">
               مستقبل کے معمار
             </span>
           </div>
           
-          <h2 className="text-3xl md:text-5xl font-extrabold text-[#1D1D1D] mb-6 leading-tight">Shape the Future.</h2>
+          <h2 className="text-3xl md:text-6xl font-black text-[#1D1D1D] mb-6 leading-tight tracking-tight">Shape the Future.</h2>
           
           <p className="text-base md:text-xl text-[#555555] leading-relaxed mb-10 px-2 sm:px-0">
             Be part of our 5-Year Plan (2026–2030) to expose <strong className="text-[#1D1D1D]">10,000+</strong> youth to the Islamic worldview annually and train <strong className="text-[#1D1D1D]">1,200+</strong> youth for professional jobs.
           </p>
 
           <a href="https://portal.ydc.org.pk/auth/signup" className="inline-block w-full sm:w-auto px-4 sm:px-0">
-            <Button size="lg" className="w-full sm:w-auto px-6 py-4 sm:px-10 sm:py-6 text-base sm:text-lg bg-[#1D1D1D] hover:bg-black text-white rounded-full shadow-xl shadow-black/10 transition-transform hover:-translate-y-1">
+            <Button size="lg" className="w-full sm:w-auto px-10 py-5 text-base sm:text-lg bg-[#1D1D1D] hover:bg-black text-white rounded-full shadow-2xl shadow-black/15 transition-transform hover:-translate-y-1">
               Create Your Profile Today
             </Button>
           </a>
@@ -213,7 +596,7 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-[#E5E5E5] py-12 bg-white">
+      <footer className="border-t border-[#E5E5E5] py-12 bg-white relative z-10">
         <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="text-[#555555] text-sm">
             &copy; {new Date().getFullYear()} Youth Development Center (YDC). All rights reserved.
@@ -221,7 +604,7 @@ export default function Home() {
           <div className="flex gap-6 text-sm text-[#555555]">
             <a href="#vision" className="hover:text-[#1D1D1D] transition-colors">Vision</a>
             <a href="#pillars" className="hover:text-[#1D1D1D] transition-colors">Methodology</a>
-            <a href="#app" className="hover:text-[#1D1D1D] transition-colors">The App</a>
+            <a href="#concept" className="hover:text-[#1D1D1D] transition-colors">Core Concept</a>
             <a href="/privacy-policy" className="hover:text-[#1D1D1D] transition-colors">Privacy Policy</a>
             <a href="/data-deletion" className="hover:text-[#1D1D1D] transition-colors">Data Deletion</a>
           </div>
